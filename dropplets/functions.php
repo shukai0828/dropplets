@@ -242,11 +242,9 @@ function get_installed_templates() {
             ?>
             <li<?php if($active_template == $template_dir_name) { ?> class="active"<?php } ?>>
                 <div class="shadow"></div>
-                <form method="POST" action="./dropplets/save.php">
-                    <img src="<?php echo $template_screenshot; ?>">
-                    <input type="hidden" name="template" id="template" required readonly value="<?php echo $template_dir_name ?>">
-                    <button class="<?php if ($active_template == $template_dir_name) :?>active<?php else : ?>activate<?php endif; ?>" type="submit" name="submit" value="submit"><?php if ($active_template == $template_dir_name) :?>t<?php else : ?>k<?php endif; ?></button>
-                </form>
+                <img src="<?php echo $template_screenshot; ?>">
+                <input type="hidden" id="template" required readonly value="<?php echo $template_dir_name ?>">
+                <button class="<?php if ($active_template == $template_dir_name) :?>active<?php else : ?>activate<?php endif; ?>" type="submit" name="submit" value="submit"><?php if ($active_template == $template_dir_name) :?>t<?php else : ?>k<?php endif; ?></button>
             </li>
         <?php
         }
