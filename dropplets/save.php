@@ -26,7 +26,7 @@ function settings_format($name, $value) {
 
 // Should allow this only on first install or after the user is authenticated
 // but this doesn't quite work. So back to default.
-if ($_POST["submit"] == "submit" && (!file_exists($settings_file) || isset($_SESSION['user'])))
+if (isset($_POST) && (!file_exists($settings_file) || isset($_SESSION['user'])))
 {
     // Get submitted setup values.
     if (isset($_POST["blog_email"])) {

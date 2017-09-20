@@ -97,7 +97,7 @@ if (!isset($_SESSION['user'])) { ?>
             <input style="display: none;" type="file" name="authorfiles" id="authorfiles" class="authorfiles" multiple="multiple" />
         </div>
 
-        <form method="POST" action="./dropplets/save.php">
+        <form method="POST" id="toolsForm">
             <div class="dp-row">
                 <div class="dp-icon dp-icon-settings"></div>
                 <div class="dp-content">Settings</div>                
@@ -175,13 +175,13 @@ if (!isset($_SESSION['user'])) { ?>
                 <div class="dp-content">Installed Templates</div>
                 <a class="dp-link dp-toggle" href="#dp-templates"></a>
             </div>
-            
+
             <div class="dp-sub-panel" id="dp-templates">
                 <div class="dp-row dp-templates">
                     <?php get_installed_templates('all'); ?>
                 </div>
             </div>
-            
+
             <div class="dp-row">
                 <div class="dp-icon dp-icon-text"></div>
                 <div class="dp-content">Intro Text</div>                
@@ -349,6 +349,40 @@ if (isset($_SESSION['user'])) { ?>
         }
       });
     }
+
+    $(function(){
+        $(document).on('click', "button.activate", function(e) {
+            e.preventDefault();
+            __obj={};
+            __obj.data = $("#toolsForm").serialize();
+            __template= $(this).prev().val();
+            __obj.data +="&template="+__template;
+            ajaxSubmit(__obj);
+        });
+        $(document).on('click', "button.dp-button-submit", function(e) {
+            e.preventDefault();
+            __obj={};
+            __obj.data = $("#toolsForm").serialize();
+            ajaxSubmit(__obj);
+        });
+        function ajaxSubmit(obj){
+            $.ajax({
+                url:  "./dropplets/save.php",
+                type: "POST",
+                data:obj.data,
+                success: function(result) {
+                    history.go(0)//刷新
+                },
+                error: function(e) {
+                },
+                beforeSend: function() {
+                },
+                complete: function() {
+                }
+            });
+        }
+
+    })
 
     jQuery(document).ready(function($) {    
 
